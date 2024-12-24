@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommSpace</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <a href="http://localhost:8080/M00913254" class="logo">CommSpace</a>
+        <div class="search-bar">
+            <div class="search-input-wrapper">
+                <input type="text" placeholder="Search CommSpace">
+                <select id="searchType" class="search-type">
+                    <option value="both">All</option>
+                    <option value="users">Users</option>
+                    <option value="content">Content</option>
+                </select>
+            </div>
+            <div class="search-results-container" style="display: none;"></div>
+        </div>
+        <div class="auth-buttons">
+            <div class="user-menu">
+                <span class="username"></span>
+                <a href="#" class="profile-link" style="display: none;">Profile</a>
+                <button class="login-btn">Log In</button>
+                <button class="signup-btn">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Sidebar - Communities -->
+        <div class="sub-list">
+            <h2>Your Communities</h2>
+            <a href="#" class="sub-item">s/programming</a>
+            <a href="#" class="sub-item">s/gaming</a>
+            <a href="#" class="sub-item">s/science</a>
+            <a href="#" class="sub-item">s/movies</a>
+            <a href="#" class="sub-item">s/books</a>
+            <a href="#" class="sub-item">s/technology</a>
+            <a href="#" class="sub-item">s/music</a>
+            <a href="#" class="sub-item">s/art</a>
+            <a href="#browse" class="sub-item">Browse All...</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-feed">
+            <div class="create-post">
+                <input type="text" placeholder="Create Post" readonly>
+            </div>
+            <!-- Posts will be dynamically inserted here -->
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="sidebar">
+            <div class="community-info">
+                <h2>About Community</h2>
+                <p>Welcome to CommSpace! A place to share and discuss interesting topics.</p>
+                <div class="community-buttons">
+                    <button class="create-community-btn">Create Community</button>
+                </div>
+            </div>
+
+            <div class="trending-communities">
+                <h2>Trending Communities</h2>
+                <div class="sub-item">s/news</div>
+                <div class="sub-item">s/photos</div>
+                <div class="sub-item">s/funny</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Log In</h2>
+                <button class="close-button">×</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" id="loginUsername" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                </div>
+                <div id="loginError" class="form-error"></div>
+                <button type="submit" class="auth-button">Log In</button>
+                <div class="form-footer">
+                    <a href="#" id="forgotPassword">Forgot Password?</a>
+                    <p>New to CommSpace? <a href="#" id="switchToSignup">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add new password reset modal -->
+    <div id="passwordResetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Reset Password</h2>
+                <button class="close-button">&times;</button>
+            </div>
+            <form id="passwordResetForm">
+                <div class="form-group">
+                    <input type="email" id="resetEmail" placeholder="Enter your email" required>
+                </div>
+                <div id="resetError" class="form-error"></div>
+                <button type="submit" class="auth-button">Request Reset Link</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add password reset confirmation page -->
+    <div id="passwordResetConfirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Set New Password</h2>
+                <button class="close-button">&times;</button>
+            </div>
+            <form id="passwordResetConfirmForm">
+                <div class="form-group">
+                    <input type="password" id="newPassword" placeholder="New password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirmPassword" placeholder="Confirm new password" required>
+                </div>
+                <div id="resetConfirmError" class="form-error"></div>
+                <button type="submit" class="auth-button">Reset Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sign Up</h2>
+                <button class="close-button">×</button>
+            </div>
+            <form id="signupForm">
+                <div class="form-group">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="signupUsername" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signupPassword" placeholder="Password" required>
+                </div>
+                <div id="signupError" class="form-error"></div>
+                <button type="submit" class="auth-button">Create Account</button>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" id="switchToLogin">Log In</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div id="createPostModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Post</h2>
+                <button class="close-button">&times;</button>
+            </div>
+            <form id="createPostForm">
+                <div class="form-group">
+                    <input type="text" id="postTitle" placeholder="Title" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="postContent" placeholder="What are your thoughts?" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="postImage">Image (optional)</label>
+                    <input type="file" id="postImage" accept="image/*" class="form-control">
+                </div>
+                <div class="form-group">
+                    <select id="postCommunity" required>
+                        <option value="">Choose a community</option>
+                        <option value="programming">s/programming</option>
+                        <option value="gaming">s/gaming</option>
+                        <option value="science">s/science</option>
+                        <option value="movies">s/movies</option>
+                        <option value="books">s/books</option>
+                        <option value="technology">s/technology</option>
+                        <option value="music">s/music</option>
+                        <option value="art">s/art</option>
+                    </select>
+                </div>
+                <div id="postError" class="form-error"></div>
+                <button type="submit" class="auth-button">Create Post</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Community Modal -->
+    <div id="createCommunityModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create a Community</h2>
+                <button class="close-button">×</button>
+            </div>
+            <form id="createCommunityForm">
+                <div class="form-group">
+                    <label for="communityName">Community Name</label>
+                    <div class="community-name-input">
+                        <span>s/</span>
+                        <input type="text" id="communityName" required pattern="^[a-zA-Z0-9_]{3,21}$"
+                            title="Community names must be between 3 and 21 characters, and can only contain letters, numbers, and underscores">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="communityDescription">Description</label>
+                    <textarea id="communityDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Community Type</label>
+                    <div class="community-type">
+                        <div class="type-option">
+                            <input type="radio" id="publicType" name="type" value="public" checked>
+                            <label for="publicType">Public</label>
+                        </div>
+                        <div class="type-option">
+                            <input type="radio" id="restrictedType" name="type" value="restricted">
+                            <label for="restrictedType">Restricted</label>
+                        </div>
+                        <div class="type-option">
+                            <input type="radio" id="privateType" name="type" value="private">
+                            <label for="privateType">Private</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="communityError" class="form-error"></div>
+                <button type="submit" class="auth-button">Create Community</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Community View Template -->
+    <template id="communityViewTemplate">
+        <div class="community-header">
+            <h1>s/{communityName}</h1>
+            <p>{communityDescription}</p>
+            <div class="community-actions">
+                <button class="join-community-btn">Join</button>
+            </div>
+        </div>
+        <div class="community-content">
+            <div class="create-post">
+                <input type="text" placeholder="Create Post" readonly>
+            </div>
+            <div class="community-posts">
+                <!-- Posts will be dynamically inserted here -->
+            </div>
+        </div>
+    </template>
+
+    <!-- Scripts -->
+    <script type="module" src="../js/posts.js"></script>
+</body>
+
+</html>
